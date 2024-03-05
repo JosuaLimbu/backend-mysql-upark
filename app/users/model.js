@@ -1,7 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql');
 
-
 // Buat koneksi ke MySQL
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -28,6 +27,15 @@ const getAllPlateDetects = (callback) => {
   });
 };
 
+const getAllAccount = (callback) => {
+  db.query('SELECT * FROM tbl_account', (err, results) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, results);
+  });
+};
+
 // Fungsi untuk mencari data berdasarkan nomor plat
 const findByNumberPlate = (numberPlate, callback) => {
   db.query('SELECT * FROM tbl_platedetect WHERE number_plate = ?', [numberPlate], (err, results) => {
@@ -38,4 +46,4 @@ const findByNumberPlate = (numberPlate, callback) => {
   });
 };
 
-module.exports = { getAllPlateDetects, findByNumberPlate };
+module.exports = { getAllPlateDetects, getAllAccount, findByNumberPlate };

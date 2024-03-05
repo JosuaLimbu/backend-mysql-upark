@@ -12,6 +12,15 @@ const index = (req, res) => {
   });
 };
 
+const getAllAccount = (req, res) => {
+  PlateDetect.getAllAccount((err, accounts) => {
+    if (err) {
+      return res.status(500).json({ status: "error", message: err.message });
+    }
+    res.status(200).json({ status: "success", message: "Welcome to backend for React JS", data: accounts });
+  });
+};
+
 // Fungsi untuk mencari data plat berdasarkan nomor plat
 const findByNumberPlate = (req, res) => {
   const numberPlate = req.params.numberPlate;
@@ -26,4 +35,4 @@ const findByNumberPlate = (req, res) => {
   });
 };
 
-module.exports = { index, findByNumberPlate };
+module.exports = { index, findByNumberPlate, getAllAccount };
